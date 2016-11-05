@@ -178,12 +178,20 @@ class Interpretter(object):
             counter = 1
             while counter:
                 while query[self.__pc] != CONDITION_END:
+                    self.__pc += 1
+
+                    if self.__pc >= len(query):
+                        raise RuntimeError("Could unbalanced number of conditional brackets")
+
                     if query[self.__pc] == CONDITION_CHECK:
                         counter += 1
-                    self.__pc += 1
 
                 # Move to instruction after the ]
                 self.__pc += 1
+
+                if self.__pc >= len(query):
+                    raise RuntimeError("Could unbalanced number of conditional brackets")
+
                 counter -= 1
 
 
@@ -195,13 +203,15 @@ class Interpretter(object):
         """
         counter = 1
         while counter:
-            while query[self.__pc] != CONDITION_CHECK:
-                if query[self.__pc] == CONDITION_END:
-                    counter += 1
-                self.__pc -= 1
+            self.__pc -= 1
+            if self.__pc < 0:
+                raise RuntimeError("Could unbalanced number of conditional brackets")
 
-            # Stay on [ if found
-            counter -= 1
+            if query[self.__pc] == CONDITION_END:
+                counter += 1
+            elif query[self.__pc] == CONDITION_CHECK:
+                # Stay on [ if found
+                counter -= 1
 
     def stack(self):
         return self.__stack
@@ -219,8 +229,8 @@ def run(code, **kwargs):
 
 def get_args():
     from argparse import ArgumentParser
-    argparse = ArgumentParser("Brainfuck Interpretter")
-    argparse.add_argument("filename", "Brainfuck file.")
+    parser = ArgumentParser("Brainfuck Interpretter")
+    parser.add_argument("filename", help="Brainfuck file.")
     return parser.parse_args()
 
 

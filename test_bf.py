@@ -64,8 +64,16 @@ class TestBF(unittest.TestCase):
         intrp.run(code)
         self.assertEqual(intrp.pointer(), 0)
 
-    def test_condition_check(self):
-        pass
+    def test_condition(self):
+        code = "[-]."
+        intrp = Interpretter(return_str=True, starting_stack=[10])
+        output = intrp.run(code)
+        self.assertEqual(output, "\0")
+        self.assertEqual(intrp.stack(), [0])
+
+    def test_condition_bounds(self):
+        self.assertRaises(RuntimeError, run, "[[]")
+        self.assertRaises(RuntimeError, run, "[]]")
 
 
 if __name__ == "__main__":
