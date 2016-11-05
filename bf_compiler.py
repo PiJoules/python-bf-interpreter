@@ -36,7 +36,9 @@ This function prints up to the first null character (0).
 This function advances the stack pointer to the character after the ending
 null terminator.
 
-
+Iteration/looping:
+while
+end
 
 """
 
