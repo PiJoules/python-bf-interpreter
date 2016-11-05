@@ -181,18 +181,18 @@ class Interpretter(object):
                     self.__pc += 1
 
                     if self.__pc >= len(query):
-                        raise RuntimeError("Could unbalanced number of conditional brackets")
+                        raise RuntimeError("Unbalanced number of conditional brackets. PC surpassed length of code.")
 
                     if query[self.__pc] == CONDITION_CHECK:
                         counter += 1
 
                 # Move to instruction after the ]
                 self.__pc += 1
-
-                if self.__pc >= len(query):
-                    raise RuntimeError("Could unbalanced number of conditional brackets")
-
                 counter -= 1
+
+                if self.__pc >= len(query) and counter:
+                    raise RuntimeError("Unbalanced number of conditional brackets. PC surpassed length of code.")
+
 
 
     def condition_end(self, query):
@@ -205,7 +205,7 @@ class Interpretter(object):
         while counter:
             self.__pc -= 1
             if self.__pc < 0:
-                raise RuntimeError("Could unbalanced number of conditional brackets")
+                raise RuntimeError("Unbalanced number of conditional brackets. PC decremented below zero.")
 
             if query[self.__pc] == CONDITION_END:
                 counter += 1

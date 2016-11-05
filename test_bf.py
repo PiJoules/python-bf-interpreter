@@ -75,6 +75,9 @@ class TestBF(unittest.TestCase):
         self.assertRaises(RuntimeError, run, "[[]")
         self.assertRaises(RuntimeError, run, "[]]")
 
+        # Just assert that this runs
+        run("[][]")
+
 
 if __name__ == "__main__":
     unittest.main()
