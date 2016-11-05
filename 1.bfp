@@ -1,0 +1,8 @@
+set 3
+set_zero
+set -4
+move 4
+move -2
+set_str abc
+move -3
+print
