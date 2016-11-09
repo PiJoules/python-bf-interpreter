@@ -37,7 +37,7 @@ This function advances the stack pointer to the character after the ending
 null terminator.
 
 Iteration/looping:
-while
+while  # go to instruction after corresponding end
 end
 
 """
@@ -48,6 +48,8 @@ SET_ZERO = "set_zero"
 MOVE = "move"
 SET_STR = "set_str"
 PRINT = "print"
+WHILE = "while"
+END = "end"
 
 
 class Compiler(object):

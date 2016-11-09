@@ -20,11 +20,6 @@ Instructions:
 
 
 Things to check for later:
-Does the [ just jump to the next ] or the next corresponding ]. IE, will
-I need a stack counter for [ and ]. For example, for  "[[]]", does the first
-[ jump to the first or second ]. For now, I am implementing it with the
-second option with the stack counter.
-
 Are the values supposed to be signed or unsigned integers/longs/whatever.
 """
 
@@ -133,7 +128,7 @@ class Interpretter(object):
         if self.__return_str:
             self.__output_buffer += c
         else:
-            print(c)
+            print(c, end="")
 
     def read_stdin(self):
         """Read byte value from stdin into current value."""
